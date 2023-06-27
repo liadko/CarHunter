@@ -1,6 +1,6 @@
 {
-    "name": "car_quest",
-    "short_name": "car_quest",
+    "name": "car_hunter",
+    "short_name": "car_hunter",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

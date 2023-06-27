@@ -1,4 +1,4 @@
-# car_quest
+# car_hunter
 
 A new Flutter project.
 
