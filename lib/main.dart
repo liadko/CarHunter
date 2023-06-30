@@ -1,9 +1,9 @@
 // ignore_for_file: curly_braces_in_flow_control_structures
 
 import 'package:flutter/material.dart';
-import 'dart:math'; // random
-import 'dart:async'; // periodic timer functions
-import 'package:flutter/services.dart'; // vibrate
+//import 'dart:math'; // random
+//import 'dart:async'; // periodic timer functions
+//import 'package:flutter/services.dart'; // vibrate
 
 import 'utils/colors.dart';
 
@@ -19,10 +19,9 @@ void main() async {
 }
 
 class MainScreen extends StatelessWidget {
-  //static String routeName = '/main-menu';
   const MainScreen({super.key});
 
-  void room2(BuildContext context) {
+  void moveToSecondScreen(BuildContext context) {
     Navigator.of(context).push(createRoute());
   }
 
@@ -31,7 +30,7 @@ class MainScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: bgColor,
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 73, 71, 102),
+        backgroundColor: appBarColor,
         title: const Text("Car Hunter"),
       ),
 
@@ -40,7 +39,7 @@ class MainScreen extends StatelessWidget {
       body: Align(
         alignment: Alignment.center,
         child: ElevatedButton(
-          onPressed: () => room2(context),
+          onPressed: () => moveToSecondScreen(context),
           child: const Text("First Screen (boring)"),
         ),
       ),

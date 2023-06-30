@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../utils/colors.dart';
 
 class SecondScreen extends StatelessWidget {
-  //static String routeName = '/second-screen';
   const SecondScreen({super.key});
 
   @override
@@ -10,7 +9,7 @@ class SecondScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: bgColor,
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 73, 71, 102),
+        backgroundColor: appBarColor,
         title: const Text("Second Page"),
       ),
       //body: gallery(),
