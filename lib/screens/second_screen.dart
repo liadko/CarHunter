@@ -12,8 +12,6 @@ class SecondScreen extends StatelessWidget {
         backgroundColor: appBarColor,
         title: const Text("Second Page"),
       ),
-      //body: gallery(),
-
       body: const Align(
         alignment: Alignment.center,
         child: Text(
