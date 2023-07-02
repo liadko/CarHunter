@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../utils/colors.dart';
 
+import 'package:google_sign_in/google_sign_in.dart';
+
 class SecondScreen extends StatelessWidget {
   const SecondScreen({super.key});
 

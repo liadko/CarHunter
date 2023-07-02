@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'utils/colors.dart';
 import 'screens/second_screen.dart';
+import 'screens/sign_in_page.dart';
 
 void main() async {
   runApp(
@@ -12,36 +13,32 @@ void main() async {
       theme: ThemeData(
           colorScheme:
               ColorScheme.fromSwatch().copyWith(secondary: accentColor)),
-      home: MainScreen(),
+      home: SignInPage(),
     ),
   );
 }
 
 class MainScreen extends StatelessWidget {
-  const MainScreen({super.key});
+  MainScreen({super.key});
 
-  void moveToSecondScreen(BuildContext context) {
-    Navigator.of(context).push(createRoute());
+  late BuildContext globalContext;
+  bool goingToSecondScreen = false;
+
+  void goToSecondScreen() {
+    Navigator.of(globalContext).push(createRoute());
   }
 
   @override
   Widget build(BuildContext context) {
+    globalContext = context;
+
     return Scaffold(
       backgroundColor: bgColor,
       appBar: AppBar(
         backgroundColor: appBarColor,
         title: const Text("Car Hunter"),
       ),
-
       body: gallery(),
-
-      // body: Align(
-      //   alignment: Alignment.center,
-      //   child: ElevatedButton(
-      //     onPressed: () => moveToSecondScreen(context),
-      //     child: const Text("First Screen (boring)"),
-      //   ),
-      // ),
     );
   }
 
@@ -67,8 +64,8 @@ class MainScreen extends StatelessWidget {
 
   Widget gallery() {
     return ListView.separated(
-      padding: const EdgeInsets.only(top: 12, left: 10, right: 10, bottom: 10),
-      itemCount: 31,
+      padding: const EdgeInsets.only(top: 12, left: 16, right: 16, bottom: 10),
+      itemCount: 11,
       separatorBuilder: (context, index) => const SizedBox(
         height: 15,
       ),
@@ -113,37 +110,64 @@ class MainScreen extends StatelessWidget {
   }
 
   Widget getMysteryCard(int index) {
-    return Container(
-      height: 136,
+    return Stack(
+      children: [
+        //First Child, The Card Itself
+        Container(
+          height: 136,
+          child: Stack(
+            children: [
+              //Picture
+              Align(
+                alignment: const Alignment(0.0, -1.0),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(13)),
+                  child: Image.asset('images/CarHunterCard.jpg',
+                      height: 109, width: 400, fit: BoxFit.cover),
+                ),
+              ),
 
-      // decoration: BoxDecoration(
-      //   border: Border.all(
-      //     color: notchColor,
-      //     width: 2,
-      //   ),
-      //   borderRadius: BorderRadius.circular(13),
-      // ),
-      child: Stack(
-        children: [
-          Align(
-            alignment: const Alignment(0.0, -1.0),
-            child: ClipRRect(
-              borderRadius: BorderRadius.vertical(top: Radius.circular(13)),
-              child: Image.asset('images/CarHunterCard.jpg',
-                  height: 109, width: 400, fit: BoxFit.fitWidth),
-            ),
+              //Notch
+              Align(
+                alignment: const Alignment(0.0, 1),
+                child: getMysteryNotch(index),
+              ),
+            ],
           ),
-          Align(
-            alignment: const Alignment(0.0, 1),
-            child: getMysteryNotch(index),
-          ),
-        ],
-      ),
+        ),
+
+        //Second Child, the button
+        Center(
+          child: ElevatedButton(
+              onPressed: () => cardPressed(index),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.transparent,
+                shadowColor: Colors.transparent,
+                // shape: RoundedRectangleBorder(
+                //   side: const BorderSide(
+                //       width: 1, // thickness
+                //       color: Colors.deepPurple // color
+                //       ),
+                //   //border radius
+                //   borderRadius: BorderRadius.circular(13),
+                // ),
+              ),
+              child: Container(
+                alignment: Alignment.center,
+                width: 370,
+                height: 136,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(13),
+                ),
+              )),
+        )
+      ],
     );
   }
 
   Widget getMysteryNotch(int index) {
     return Container(
+      width: 400,
       height: 41,
       decoration: BoxDecoration(
           //color: Color.fromARGB(255, 20, 20, 26),
@@ -197,6 +221,16 @@ class MainScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void cardPressed(int index) {
+    if (goingToSecondScreen)
+      return; //early return if already going to second screen
+    goingToSecondScreen = true;
+    Future.delayed(const Duration(milliseconds: 300), () {
+      goToSecondScreen();
+      goingToSecondScreen = false;
+    });
   }
 }
 
